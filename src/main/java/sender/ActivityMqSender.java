@@ -17,10 +17,11 @@ public class ActivityMqSender {
         props.put("value.serializer", StringSerializer.class.getName());
         props.put("bootstrap.servers", "192.168.3.85:9092");
         Producer<String, String> producer = new KafkaProducer<String, String>(props);
-        for (int messageNo = 0; messageNo < 1; messageNo++) {
+        for (int messageNo = 0; messageNo < 3; messageNo++) {
             String str = new ActivityData(new ActivityInfo().random()).random();
             System.out.println(">>>>>>>>>"+str);
-            producer.send(new ProducerRecord<String, String>(TOPIC, messageNo + "",str));
+            long timeMillis = System.currentTimeMillis();
+            producer.send(new ProducerRecord<String, String>(TOPIC, timeMillis + "",str));
 //            try {
 //                Thread.sleep(500);
 //            } catch (InterruptedException e) {

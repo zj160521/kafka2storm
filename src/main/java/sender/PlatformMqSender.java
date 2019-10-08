@@ -20,7 +20,8 @@ public class PlatformMqSender {
         for (int messageNo = 0; messageNo < 6; messageNo++) {
             String str = new PlatformData(new PlatformInfo().random()).random();
             System.out.println(">>>>>>>>>"+str);
-            producer.send(new ProducerRecord<String, String>(TOPIC, messageNo + "",str));
+            long timeMillis = System.currentTimeMillis();
+            producer.send(new ProducerRecord<String, String>(TOPIC, timeMillis + "",str));
         }
         producer.flush();
     }
